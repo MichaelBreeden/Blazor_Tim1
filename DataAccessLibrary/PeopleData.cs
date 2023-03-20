@@ -18,15 +18,21 @@ namespace DataAccessLibrary
 
         public Task<List<PersonModel>> GetPeople()
         {
-            string sql = "select * from dbo.People"; // could be mroe efficient
+            string sql = "select * from dbo.People"; // could be more efficient
+
+            return _db.LoadData<PersonModel, dynamic>(sql, new { }); // no parameters, No awaiting here.
+        }
+        public Task<List<PersonModel>> GetPeople(string sql)
+        {
+            //string sql = "select * from dbo.People"; // could be more efficient
 
             return _db.LoadData<PersonModel, dynamic>(sql, new { }); // no parameters, No awaiting here.
         }
 
         public Task InsertPerson(PersonModel person)
         {
-            string sql = @"insert into  dbo.People (FirstName, LastName, EmailAddress) 
-                            values (@FirstName, @LastName, @EmailAddress);";
+            string sql = @"insert into  dbo.People (FirstName, LastName, EmailAddress) " +  
+                            "values (@FirstName, @LastName, @EmailAddress);";
 
             return _db.SaveData(sql, person); // No awaiting here.
         }
@@ -38,7 +44,7 @@ namespace DataAccessLibrary
             [LastName] [varchar] (50) NOT NULL,
             [FirstName] [varchar] (50) NOT NULL,
             [EmailAddress] [varchar] (50) NOT NULL,
-            [DateOfBirth] [datetime] NOT NULL,
+            [DateOfBirth] [datetime] NULL,
          CONSTRAINT[PK_People] PRIMARY KEY CLUSTERED
         (
             [ID] ASC
@@ -47,7 +53,8 @@ namespace DataAccessLibrary
 
         insert into People values ('Seaton', 'Dick', 'dseaton@lakecountyil.gov', '1916-03-12')
         insert into People values ('Duquesne', 'Blacky', 'bduquesne@lakecountyil.gov', '1918-06-11')
-        insert into People values ('Franklin', 'Ben', 'bfranklin@lakecountyil.gov', '17156-03-17')
-        */
+        insert into People values ('Franklin', 'Ben', 'bfranklin@lakecountyil.gov', '1856-03-17')
+        select * from [dbo].[People]
+         */
     }
 }

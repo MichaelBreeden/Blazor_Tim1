@@ -10,6 +10,7 @@ namespace DataAccessLibrary
         ISqlDataAccess _db { get; }
 
         Task<List<PersonModel>> GetPeople();
+        Task<List<PersonModel>> GetPeople(string sql);
         Task InsertPerson(PersonModel person);
     }
 }
