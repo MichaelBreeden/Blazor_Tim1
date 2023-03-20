@@ -9,8 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Razor Pages can be added. MVC? probably.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
-builder.Services.AddTransient<ISqlDataAccess>();
+builder.Services.AddSingleton<WeatherForecastService>(); // One instance for entire application
+builder.Services.AddTransient<ISqlDataAccess, SqlDataAccess>();
+builder.Services.AddTransient<IPeopleData, PeopleData>(); 
 
 var app = builder.Build();
 

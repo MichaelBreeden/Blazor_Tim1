@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
-    internal interface IPeopleData
+    //internal interface IPeopleData
+    public interface IPeopleData
     {
         ISqlDataAccess _db { get; }
 

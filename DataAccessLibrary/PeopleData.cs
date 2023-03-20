@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
-    internal class PeopleData : IPeopleData // now need to put this in startup.cs for injection
+    //internal class PeopleData : IPeopleData 
+    public class PeopleData : IPeopleData // now need to put this in startup.cs for injection
     {
         public PeopleData(ISqlDataAccess db)
         {
