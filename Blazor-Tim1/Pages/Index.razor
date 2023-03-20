@@ -1,9 +1,38 @@
 ﻿@page "/"
+@inject IConfiguration _config
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Appsettings Values</h1>
 
-Welcome to your new app.
+<SurveyPrompt Title="How is Blazor working for you? ... better." />
 
-<SurveyPrompt Title="How is Blazor working for you? ... not so good yet." />
+<p>
+    MySetting Value: @mySetting
+<br />  
+    SubSetting Value: @subSetting
+<br />
+    SomeOtherSetting: @someOtherSetting
+    <br />
+    Connection String Value: @connectionString
+</p>
+@code {
+    string mySetting = String.Empty;
+    string subSetting = String.Empty;
+    string connectionString = String.Empty;
+    string someOtherSetting = String.Empty;
+    // Need to bring in configuration to get the values from settings
+    // It would default accessible in startup.cs... but there is no startup.css, so...
+
+    protected override void OnInitialized()
+    {
+        // pulls from appsetting.json after it trys all the rest of the settings locations.
+        mySetting = _config.GetValue<string>("MySetting");
+        subSetting = _config.GetValue<string>("MainSetting:SubSetting");
+        someOtherSetting = _config.GetValue<string>("someOtherSetting");
+        // Normally, advanced, you would get all settings at once.
+
+        // Put this .. @~26:00
+        connectionString = _config.GetConnectionString("default");
+    }
+}

@@ -1,11 +1,18 @@
+using Microsoft.Extensions.Configuration;
 namespace Blazor_Tim1.Data
 {
     public class WeatherForecastService
     {
+        public WeatherForecastService(IConfiguration config)
+        {
+            _config = config;
+        }
+        private readonly IConfiguration _config;
+
         private static readonly string[] Summaries = new[]
         {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+        };
 
         public Task<WeatherForecast[]> GetForecastAsync(DateTime startDate)
         {

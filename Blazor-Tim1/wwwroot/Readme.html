@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Project Guide</title>
+
+    <style>
+        body {
+            margin: 20px;
+            padding: 0px;
+        }
+
+        h3 {
+            text-decoration: underline;
+            cursor: pointer;
+            color: #663333;
+            margin-left: 16px;
+        }
+
+        h4 {
+            /*text-decoration:underline;*/
+            cursor: pointer;
+            margin-left: 16px;
+        }
+
+        .clHr300 {
+            width: 300px;
+            height: 3px;
+            background-color: Black;
+            /*604079 SHoe 01/28/14 */
+        }
+
+        .clHr600 {
+            width: 600px;
+            height: 3px;
+            background-color: Black;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        td {
+            /*height:50px; */
+            padding: 10px;
+            vertical-align: top;
+        }
+
+        .clCell1 {
+            width: 200px;
+        }
+
+        .clCell2 {
+            width: 400px;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            font-family: ariel;
+            max-width: 800px;
+        }
+
+        p {
+            max-width: 800px;
+        }
+    </style>
+
+    <script type="text/javascript">
+    function toggleDiv(that) {
+        var oNext = document.getElementById("idDiv" + that);
+        //alert("Hi-how about-" + that + "...=" + oNext.id + "...");
+        if (oNext.style.display == "block") {
+            oNext.style.display = "none";
+        }
+        else {
+            oNext.style.display = "block";
+        }
+    }
+    </script>
+    <script type="text/javascript">
+    function toggleThis(that) {
+        console.log("2 Hi-how about that-" + that + "...=" + that + "...");
+        var oNext = document.getElementById(that);
+        console.log("2 Hi-how about-" + that + "...=" + oNext.id + "...");
+        if (oNext.style.display == "block") {
+            oNext.style.display = "none";
+        }
+        else {
+            oNext.style.display = "block";
+        }
+    }
+    </script>
+
+</head>
+<body>
+    <h3>This is about making a website serve the Covid Vaccine Data taken from Salesforce.</h3>
+
+    <h3 onclick="toggleDiv('Net0an1');">Vaccine Information Web Site Design</h3>
+    <div id="idDivNet0an1" style="display:none;">
+<pre>
+Work with data in for vaccine information: HLSQLStage01\Warehouse.VaccineData_2022 Database.
+
+The tables the data would come from are:
+  (1) Accounts (1,284 MB) - Key table.
+      Contains a lot of data but most of it is empty. There are about 38 fields with useful data.
+  
+  (2) HealthCloudGA_EhrImmumzation__c (396 MB)
+      This table seems to record reports to ICare about Account Encounters. (One too Many)  
+ 
+  (3) TimeSlot (88 MB) - 285,888 records - Many accounts in the same time slot. That makes sense.
+      I don't think this table matters, but verify
+
+  (4) PatientImmunization (295 KB) 811 Rows - Looks abandoned (Verify)
+  (5) PatientImmunizationHistory (14 KB) - 112 Rows - Looks abandoned
+  
+  select ac.id, ac.PERSONEMAIL, hc.id, hc.HOHEMAILADDRESS__C from accounts ac 
+         inner join from HealthCloudGA_EhrImmumzation hc		 
+		 on ac.Id = hc.ACCOUNTID__C
+		 where acid='0014W000026KmD7QAK'
+</pre>
+
+ 
+    </div>
+    <hr align='left' class='clHr300' />
+
+
+    <h3 onclick="toggleDiv('Net0ann');">Notes</h3>
+    <div id="idDivNet0ann" style="display:none;">
+<pre>
+...
+</pre>
+    </div>
+    <hr align='left' class='clHr300' />
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+</body>
+</html>

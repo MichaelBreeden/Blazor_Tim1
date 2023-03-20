@@ -9,7 +9,7 @@
 
 <p>This component demonstrates fetching data from a service.</p>
 
-@if (forecasts == null)
+@if (forecasts == null) // No values, not instantiated yet.
 {
     <p><em>Loading...</em></p>
 }
@@ -41,7 +41,7 @@ else
 @code {
     private WeatherForecast[]? forecasts;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync() // Page Event... there are many more.
     {
         forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
     }

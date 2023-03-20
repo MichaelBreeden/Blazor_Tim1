@@ -1,13 +1,16 @@
 using Blazor_Tim1.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using DataAccessLibrary;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// Razor Pages can be added. MVC? probably.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddTransient<ISqlDataAccess>();
 
 var app = builder.Build();
 
@@ -25,7 +28,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.MapBlazorHub();
+app.MapBlazorHub(); // Where Signal R is mapped
 app.MapFallbackToPage("/_Host");
 
 app.Run();
