@@ -4,25 +4,33 @@
 @using Blazor_Tim1.Models
 
 @inject IPeopleData _db
-<!-- Might need more than one -->
+<!-- Might need more than one Db -->
+@inject IJSRuntime JsRuntime
 
 <h2>People</h2>
 <h4>Insert new Person</h4>
 <EditForm Model="@newPerson" OnValidSubmit="@InsertPerson">
     <DataAnnotationsValidator />
     <ValidationSummary />
-    <InputText id="firstName" @bind-Value="newPerson.FirstName" />
-    <InputText id="lastName" @bind-Value="newPerson.LastName" />
-    <InputText id="emailAddress" @bind-Value="newPerson.EmailAddress" />
-
+    <table>
+    <tr><td>First Name: </td><td><InputText id="firstName" @bind-Value="newPerson.FirstName" /></td></tr>
+    <tr><td>Last Name: </td><td><InputText id="lastName" @bind-Value="newPerson.LastName" /></td> </tr>
+    <tr><td>Email: </td><td><InputText id="emailAddress" @bind-Value="newPerson.EmailAddress" /></td></tr>
+        
+    </table>
     <button type="submit" class="btn btn-primary">Submit</button>
 
 </EditForm>
-
+<br /><br />
 <h4>Current People</h4>
+
+<input type="text" @bind-value="InputText" />&nbsp;&nbsp;
+<button class="btn btn-secondary" @onclick="OnClick">Find Records by Last Name</button>
+
 @if (people is null)
 {
-    <p><em>Loading...</em></p>
+    <!--p><em>Loading...</em></p-->
+    <p><em>People...</em></p>
 }
 else
 {
@@ -32,6 +40,7 @@ else
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email Address</th>
+                <th>Vaccine</th>
             </tr>
         </thead>
         <tbody>
@@ -42,6 +51,7 @@ else
                     <td>@person.FirstName</td>
                     <td>@person.LastName</td>
                     <td>@person.EmailAddress</td>
+                    <td>@person.Vaccine</td>
                 </tr>
             }
         </tbody>
@@ -58,10 +68,7 @@ else
     {
         //return base.OnInitializedAsync() // Default boilerplate
         //people = await _db.GetPeople();
-        people = await _db.GetPeople("select * from dbo.People");
-        //people = await _db.GetPeople("select top(10) LastName, name as firstName, PERSONEMAIL as emailaddress from [dbo].[accounts]");
-        // where lastname like 'Car%'");
-
+        //people = await _db.GetPeople("select * from dbo.People");
     }
 
     //private void InsertPerson()
@@ -73,10 +80,38 @@ else
                 FirstName = newPerson.FirstName,
                 LastName = newPerson.LastName,
                 EmailAddress = newPerson.EmailAddress
+                // Vaccine = newPerson.EmailAddress // Not Yet
             };
 
         await _db.InsertPerson(p);
         people.Add(p); // @1:10:35 ... shows nothing Db specific, so needs no Db call
-        newPerson = new DisplayPersonModel(); // wipe out info from lst insert.
+        newPerson = new DisplayPersonModel(); // wipe out info from last insert.
+    }
+    private string InputText { get; set; } = "";
+
+    //private void OnClick()
+    private async Task OnClick() // Will this work or do I need to remove the await below?
+
+    {
+        // Do something with the value of InputText
+        var inputValue = InputText;
+        // For example, you could display it in an alert dialog
+        //JsRuntime.InvokeVoidAsync("alert", $"Input text is: {inputValue}"); // Works nice but is async so processing continues
+
+        //string sql = "select top(10) LastName, name as firstName, PERSONEMAIL as emailaddress from [dbo].[accounts] ";
+        string sql = "select top(10) ac.LastName, ac.name as firstName, ac.PERSONEMAIL as emailaddress, hc.MVX__C as Vaccine " +
+                     " from[dbo].[accounts] ac inner join HealthCloudGA_EhrImmumzation__c hc on ac.Id = hc.ACCOUNTID__C";
+
+        if (inputValue.Trim() != "")
+        {
+            sql += " where lastname like '" + inputValue + "%'";
+        }
+
+        //people = await _db.GetPeople("select * from dbo.People");
+        people = await _db.GetPeople(sql);
+        //people = await _db.GetPeople("select top(10) LastName, name as firstName, PERSONEMAIL as emailaddress from [dbo].[accounts]");
+
+
+
     }
 }

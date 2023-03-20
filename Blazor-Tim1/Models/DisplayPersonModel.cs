@@ -15,5 +15,6 @@ namespace Blazor_Tim1.Models
         [Required]
         [EmailAddress]
         public string EmailAddress { set; get; }
+        public string Vaccine { set; get; }
     }
 }
