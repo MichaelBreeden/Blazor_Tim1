@@ -7,6 +7,27 @@
         <PageTitle>Not found</PageTitle>
         <LayoutView Layout="@typeof(MainLayout)">
             <p role="alert">Sorry, there's nothing at this address.</p>
+            <!-- 
+            Pretty brief, so add more stuff around it. Add a new page. Could be anything including a
+            component ... <BlazorApp.Pages.Error> ... You can update that page all you want.
+            You can add html here, but not too much, please.
+            ... What you commonly see in MVC, etc. 404 Page -->
         </LayoutView>
     </NotFound>
+    <!--<NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <h2>Huh? This looks missing</h2>
+            <div class="row"
+                <div class = "col-md-12">
+                    <img = "images/cat.jpg" />
+                </div>
+            </div>
+        </LayoutView>
+    </NotFound>  -->
+    <!--<NotFound>
+         <LayoutView Layout="@typeof(MainLayout)">
+             <BlazorApp.Pages.Error></BlazorApp.Pages.Error>
+         </LayoutView>
+     </NotFound>  -->
+
 </Router>

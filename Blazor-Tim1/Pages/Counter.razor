@@ -1,5 +1,6 @@
 ﻿@page "/counter"
-
+@page "/counter/{StarterValue:int}"
+<!-- Section 1, Lesson 3, Routing 16:30 .. Route could be anything to get it here. -->
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
@@ -9,10 +10,23 @@
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
+    [Parameter]
+    public int StarterValue { get; set; } // Property name matches to route is expecting
+
     private int currentCount = 0;
+
+    // So Parameter can be used... Only runs on initial start of page.
+    protected override void OnParametersSet() // From video
+    { 
+        base.OnParametersSet();
+        currentCount = StarterValue; // This is crazy for doing routing... Wow.
+    }
+    //protected override void OnParametersSet() => base.OnParametersSet(); // From Ctl .
 
     private void IncrementCount()
     {
+        // Error handling Section2 Lesson 5 @1:00
+        // throw new exceptio("I just broke this");
         currentCount++;
     }
 }

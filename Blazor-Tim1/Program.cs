@@ -27,9 +27,13 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
-app.UseRouting();
+app.UseRouting(); // Default for ASP.Net Core
 
 app.MapBlazorHub(); // Where Signal R is mapped
-app.MapFallbackToPage("/_Host");
+
+// In case we don't know where we are going. Hosts.shtml knows.
+// Unlike in 3.1, the _Hosts.shtml file contents have been moved to _Layout.shtml and Hosts.shtm pretty much just redirects there.
+// _Layout.shtml does a lot (css, js, RenderBody()) .... That makes it the starter page.
+app.MapFallbackToPage("/_Host"); 
 
 app.Run();
