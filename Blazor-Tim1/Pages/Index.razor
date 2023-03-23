@@ -1,4 +1,10 @@
 ﻿@page "/"
+@using Blazor_Tim1.Data
+@using Microsoft.Extensions.Logging
+
+<!-- This is like adding to to the constructor -->
+@inject ILogger<Index> log 
+@inject IDataAccess db
 @inject IConfiguration _config
 
 <PageTitle>Index</PageTitle>
@@ -6,6 +12,10 @@
 <h1>Appsettings Values</h1>
 
 <SurveyPrompt Title="How is Blazor working for you? ... better." />
+
+<div class="row">
+
+    <div class="col-md-6">
 
 <p>
     MySetting Value: @mySetting
@@ -15,9 +25,17 @@
     SomeOtherSetting: @someOtherSetting
     <br />
     Connection String Value: @connectionString
-    <br />
-    <img src="images/SFHiker.png" />
+    <br /><br />
+    <!-- If a singleton, then only one instance, so same number each time the page is opened.-->
+    Your random number is @db.GetUserAge() and the time is @someTime.
 </p>
+</div>
+
+<div class="col-md-6">
+    <img src="images/SFHiker.png" class="img-fluid" />
+</div>
+</div>
+
 @code {
     string mySetting = String.Empty;
     string subSetting = String.Empty;
@@ -25,9 +43,22 @@
     string someOtherSetting = String.Empty;
     // Need to bring in configuration to get the values from settings
     // It would default accessible in startup.cs... but there is no startup.css, so...
+    string someTime = String.Empty;
+
+    public Index()
+    {
+        // This is a problem because it happens before the inject statements.
+        // So put it in onInitialize()
+        //log.LogInformation("Just opened the main page");
+    }
 
     protected override void OnInitialized()
     {
+        int ii = 25;
+        // String Interpolation is good for a file, but logging can be more complicated.
+        // Those values at the end are saved separately by some logging frameworks like Serialog
+        log.LogInformation("Just opened the main page onInitialize() id = #{UserId} and #{id}", ii, ii);
+
         // pulls from appsetting.json after it trys all the rest of the settings locations.
         mySetting = _config.GetValue<string>("MySetting");
         subSetting = _config.GetValue<string>("MainSetting:SubSetting");
@@ -36,5 +67,7 @@
 
         // Put this .. @~26:00
         connectionString = _config.GetConnectionString("default");
+
+        someTime = DateTime.Now.ToString("HH:MM:ss");
     }
 }

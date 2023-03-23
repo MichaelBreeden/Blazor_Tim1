@@ -123,9 +123,348 @@ The tables the data would come from are:
 		 where acid='0014W000026KmD7QAK'
 </pre>
 
- 
+
     </div>
     <hr align='left' class='clHr300' />
+
+
+    <h3 onclick="toggleDiv('Net0an1tc1');">.Net Core AppSettings - Tim Corey</h3>
+    <div id="idDivNet0an1tc1" style="display:none;">
+<pre>Intro to AppSettings in .NET Core - Appsettings.json, secrets.json, and more - Tim Corey
+https://www.youtube.com/watch?v=_2_qksdQKCE
+
+@3:30 Create New Project ->Blazor App -> ... Blazor Server...
+
+Set index. as default startup page. Test in IIS. 
+
+appsettings.json is 1 of 5 places to store settings. It is the default location.
+This is about 3 of the standard location, all are on by default.
+appsettings is the last in the sequence of appsettings heirachy.
+  Command line
+  Environment vaiables
+  Secrets  
+  Environment specific settings
+  appSettings
+  
+Add Configuration to Razor Page as such 
+@inject IConfiguration _config 
+  
+@16:30 shows how to add configuration to a service (that is injected) by adding it 
+to the constructor
+    using Microsoft.Extensions.Configuration;
+    public WeatherForcastService(IConfiguration config)
+	{
+	    _config = config;
+	}
+	private readonly IConfiguration _config;
+	
+17:40 Add to Imports.razor so you don't need full qualification in code
+@using Microsoft.Extensions.Configuration	
+
+@29:00 - Development Security
+Where to safely put connection strings, etc. sensitive data that needs to be protected.
+  If it is in source control, it can also overwrite someone elses development
+
+@31:00 Production Security
+  Azure App Settings (very secured) .. or KeyVault...
+  
+Sew ... appsettings.development.json - only used when in development.
+  @33:40 Properties -> launchSettings.json defines the environment for IIS Express and Kestrel
+    "ASPNETCORE_ENVIRONMENT": "Development" 
+  appsettings.development.json will be override appsettings.json.	
+    (Should not even be a value in the field in appsettings.json)
+  @37:00 will be Production if missing "ASPNETCORE_ENVIRONMENT": "Development"
+    Only then does appsettings.development.json override appsettings.production.json
+  File in server, not in source control, could ocverride values in appsettings.json
+  
+  appsettings.development.json should probably be in source control, but not appsettings.json
+  so @40:40 rt click project and select Manage User Secrets, it created new json file 
+  secrets.json. Access it by Rt Click ->Manage User Secrets. It's not stored in the project and 
+  cannot even be checked in. It's ... elsewhere...
+  Files specific to your machine, local environment. Different file for different apps.
+  Sew secrets.json overrides both appsettings.json and appsettings.development.json.
+  It's not encrypted, but is only available to your Profile...
+  
+  @45:00 - Production settings should not be on your machine. 
+  appsettings.json - Would be for application, things that don't need to be overriden.
+  appsettings.development.json - Would be for your local machine
+</pre>
+    </div>
+    <hr align='left' class='clHr300' />
+
+    <h3 onclick="toggleDiv('Net0bss');">Back To Blazor Server Side - Tim Corey</h3>
+    <div id="idDivNet0bss" style="display:none;">
+<pre>Intro to Blazor Server Side - Includes SQL Data Access and Best Practices
+https://www.youtube.com/watch?v=8DNgdphLvag&t=4s (.Net Core 3.1)
+
+@3:00 - Blazor Server - Does not run C# at the client.
+        Keeps a connection open from client to server. 
+		Signal R - probably websocket.
+		
+@7:30 Default mapping in App.razor (if a Route is declared)
+
+@8:50 Under Pages/_Host.chstml is where CSS and js will be added.
+      No, it's now in Pages/_Layout.chstml which is called by Pages/_Host.chstml. 
+	    Very HTML like...
+		Includes "_framework/blazor.server.js" - Communicates to server.
+
+@11:00 Razor applications use .cshtml extension		
+	   Blazor applications use .razor extension		
+		
+@12:00	@Page - sets path to page. Might not be page name?
+
+@13:00 Blazor pages have the code on the Blazor page itself. 
+       Keep the C# code short, less than 100 lines. USe Library.
+   
+@14:30 - Counter Page. @15:30 - onclick Button.   
+   @17:15 Run in Kestrel... by selecting the project name.
+
+@21:00 there is a Stay Alive message on the network. Web Sockets use Binary Transfer.
+  ... Did not refresh page, just moved value to be updated and where to update it.
+  
+@24:00 Fetch Data page needed to transfer some more data.  
+  @26:00 - Shows about injection of WeatherForecastService 
+ 
+@32:30 - Hook to SQL, select, insert.
+   @33:00 Add a Class Library. (Using .Net Standard - more portable)
+     Add ->New Project ->Class Library C# .Net or .Net Standard (video just says .Net Standard)
+	 - DataAccessLibrary - [Change from .Net 6.0 to .Nst Standard 2.0]
+	 Remove class1.cs. Add class SqlDataAccess
+	 
+@34:20 Use Dapper - ->Tools ->NuGet Package Manager ->Manage NuGet Packages for solution.
+	->DataAccessLibrary ->Install 2.0.123
+    - Create constructor in DataAccessLibrary	
+	
+@40:00 Extract Interface - on Class Name Rt Clcik ->Quick Actions and Refactoring ->Extract Interface 
+    ->To New File ISqlDataAccess.cs	(Leave it where it is instead of moving it to an interfaces folder)
+	
+@40:50 Add New Class PeopleData.cs (to Library)
+  Add new class in Models folder - PersonModel.cds
+[[add key="SqlConnectionString1" value="Data Source=HLSQLStage01\Warehouse; initial catalog=SalesForce; Integrated Security=True" />	
+
+@47:00 Add to program.cs (lots of problems with internal access needing to be public.)
+  builder.Services.AddTransient[[ISqlDataAccess, SqlDataAccess>();
+  builder.Services.AddTransient[[IPeopleData, PeopleData>(); 
+
+@49:00 Create page for inserting People under new folder "MyPages" (to show about routing - weird)
+   Add ->New Item ->Razor Component "People.razor"->
+   To top of page, add @page "/Data/People"... 
+     Best practices would be to name it "/MyPages/People", but the point is that you don't have to.
+
+@54:00 	Making the Razor Page. 
+
+@57:40 - Add it to the NavMenu	 
+
+@59.40 - Add data to Person. Add Models folder. 
+    Add Class DisplayPersonModel.. so UI specific code can be added here. 
+	
+@1:10:35 Add new person to people List... shows nothing Db specific, so needs no Db call	
+
+@1:13:20 - Test
+@1:15:00 - Replaces Angular, React, Vue Frameworks
+@1:17:20 - You can use javascript if you want to...
+</pre>
+
+<pre>PROBLEM: In SqlDataAccess.cs it uses: --- This fixed itself
+string connectionString = _config.GetConnectionString(ConnectionStringName);
+but GetConnectionString shows the error: 
+  iconfiguration does not contain a definition for getconnectionstring
+  
+Sew... 
+1. https://pmichaels.net/2020/09/26/iconfiguration-does-not-contain-a-definition-for-getvalue/
+  Typically appears when you’re using IConfiguration outside of an Asp.Net Core app. In fact, GetValue is an extension method, so the solution is to simply add the following package:
+Install-Package Microsoft.Extensions.Configuration.Binder
+  So, does that exist in the project? It should.
+  In index.razor, it works as Microsoft.Extensions.Configuration... looks good so far.
+  It sort of looks like the command above is for Powershell, but it could be done with NuGet.
+  So, let's see if we can find it with NuGet. It's there. Add it to DataAccesLibrary project
+  Doesn't look good. Close VS and open it again. No help. Error shows as:
+  Cannot implicitly convert type 'DataAccessLibrary.IConfiguration to
+  'Microsoft.Extensions.Configuration.IConfiguration. An explixit conversion exists (are you missing a caste?)
+Show me a >net core class using iConfiguration to get a connection string  
+... Dang... It fixed itself...
+</pre>
+    </div>
+    <hr align='left' class='clHr300' />
+
+    <h3 onclick="toggleDiv('Net0bsstc');">Blazor Server Start To Finish - Tim Corey</h3>
+    <div id="idDivNet0bss" style="display:none;">
+<pre>https://courses.iamtimcorey.com/courses/enrolled/803402
+Enroll 03/20/2023
+</pre>
+<pre>Lesson 1. Introduction
+Blazor Server is an ASP.Net Core Web Application that uses SignalR to enable 
+client side interactions to create a Single Page Application (SPA) powered by C#.
+
+SignalR is a connection stream.
+</pre>
+<pre>Lesson 2. Where does Blazor Server Fit.
+Best for Client Side data interaction. All code on the server.
+There can be a limitation to SignalR > 10,000.
+Easier to debug. No Offline support.
+Is Blazer Server scalable - It ahs open SignalR connection. Testing shows very scalable.
+  On Azure - medium sized instance > 10,000 users ... or get an Azure SignalR Service.
+Works as a global standard, not propriatory standards.
+Does more than javascript. Tends to replace javascript frameworks.
+  
+Blazor Client - Client Side libraries in C# (DLL) downloaded to the Client
+  Needs some server code like for Database access.
+  Offline support.
+  Uses Web Assembly, a global staandard.  
+</pre>
+<pre>Lesson 3 - Course Content
+A. Blazor Server
+  Basic Template
+  Routing
+  Hosting
+  Error handling
+  Static Files
+  
+B. Systems in Blazor
+  ASP.Net Web Application
+  Dependency Injection
+  Logging
+  Configuration Files
+  Bootstrap 4 (parts needed)
+  
+C. How to build Pages
+  ... Lots of parts.   
+  Layout Pages.
+  
+D. Build and use Components.
+  Pages are components - Data in, out, even componetts in.
+  Composition  
+
+E. Forms
+  Validation
+  Advnced Forms
+  How to uplooad files in Blazor
+  
+F. Authentication
+  Checkbox in template...
+  Add Authentication to template that didn't include it.  
+  Authorization - Roles
+    Hide and show mewnues per Roles.
+	
+G. Data Access
+  CRUD - Use SQL server, but make it replacable and replace it.
+  
+H. Deployment - to 3 places
+  IIS Express - > IIS Server
+  Hosting Platform. Deploy to Hosting Service
+  Deploy to Azure Web Apps.
+</pre>
+    </div>
+    <hr align='left' class='clHr300' />
+
+    <h3 onclick="toggleDiv('Net0ane65');">.Net 6 Updates</h3>
+    <div id="idDivNet0ane65" style="display:none;">
+<pre>
+Code in Program.cs file is weird. It's not in a class... It's unique.
+
+Blank Templates. ... Just says "Hello World"...
+
+Kestrel Configuration- local server.
+  You can change the port number in launchSettings.json if you want.
+
+Hot Reload - Fails occasionally... when there are too many changes. Matters not.
+  Can be automatic... say when file saved...
+  Can be web code or even C#... State remains, unlike a reload.
+  Can do more than I ever thought.
+  
+Header Components
+  Different pages have different titles... not just in header.
+  @4:10 Even Changing values in...
+    [[PageTitle>Title[[/PageTitle>
+  @7:00 [[HeadContent .../> Add metadata or anyhting else you want in the header besides the title.
+     [[HeadContent>
+	   [[meta name="description" content="What this page is about".>
+	 [[/HeadContent>
+  @12:50 - You can change/add pretty much anything in the header including .js and .css.	 
+
+Query String Parameters Can be passed in as part of the URL and update the UI.
+  [[Parameter>
+
+Error Boundaries - Exceptions used to effect the entire application, but starting 
+  in .Net 6. ... Seems to be an exception handler for components on a Page and only 
+  effects the one component.
+  Weird Shit... Look at the first couple minutes of this. It shows the Counter 
+  Page is a component??????? that can be put on other pages.
+
+Accessibility Updates - A lot is built in full template, but not in blank template. 
+   Standard tabbing and accessibility methods and standards.
+  Navigate, Nav elements very tabbable so starts at expected element.
+  role is for that
+  [[main> gives context... 
+  
+File Upload - Not in 3.1, can still be useful
+  File Upload built into Blazer.  
+  [logging is injected in this code.]
+  Creates random name, because likely same file name could be uploaded multiple.
+</pre>
+    </div>
+    <hr align='left' class='clHr300' />
+
+    <h3 onclick="toggleDiv('Net66');">Section 02 The Basics</h3>
+    <div id="idDivNet66" style="display:none;">
+<pre>Section Introduction
+  Basic Template
+  How Routing Works
+  Development Hosting
+  Error Handling - Exceptions, bad URLs
+  Static Files
+  Conclusion  
+  
+Homework -  Blazor site with the following
+  A custom html error page with an image for when you navigate to a missing page.
+  2 Custom Routes in addition to their current routes
+    to the counter page (.../Counter/20) 
+	to the weather page (.../Weather)    
+</pre>
+<pre>*** Basic Template ***
+
+IIS will give different ports for each project.
+Kestrel will use ports 5000, 5001. Could be collision.
+</pre>
+<pre>*** Routing ***
+Console App -Starts at Main
+
+app.razor is where the routing comes from. (follows from _layout.shtml)
+  Allows choice if route found or route not found.
+@10:40 in App.razor shows default route (Layout) and error message for fails.
+@15:00 ... You can have more than one route in a page... Weird...
+
+@16:20 ... So ...Add new page director to existing one...
+  @page "/counter"
+  @page "/counter/{StarterValue:int}"
+  
+  Routing in App.razor changes if there is Authentication.
+</pre>
+<pre>*** Development Hosting ***
+  .\Properties\launchSettings.json controls how the web server works.
+</pre>
+<pre>*** Section 2 Lesson 5 Error Handling ***
+  Expected and unexpected Errors
+  It's different in Blazor because there is a connection. Unhandled Exceptions can break that.
+  Two types of errors.
+  a. Missing Page - App.Razor rezponds because it handles routing... and that route isn't found.
+     Pretty brief, so add more stuff around it. Add a new page. Could be anything including a 
+	 component ... [[BlazorApp.Pages.Error>
+  b. Unhandled Exception - Gives message on page and reloads. The error messages also shows in 
+     the Developer Tools, if the environment developer is Development in launchSettings.json (DeveloperMode). Much less data given in "Production".
+	 Better to catch what exceptions you can, otherwise what message to give use.
+	   From Hosts.chtml calling _Layout.cshtml -> [[div id="blazor-error-ui">	 
+</pre>
+
+<pre>*** Section 2 Lesson 6 Static Files ***
+  In wwwroot... All files in wwwroot are in the File System.
+  References to .js or .css start at wwwroot ie. &lt;link href="css/site.css" rel="stylesheet" />
+</pre>
+<pre>*** Section 2 Lesson 7 Conclusion - Homework ***
+</pre>
+    </div>
+    <hr align='left' class='clHr300' />
+
 
 
     <h3 onclick="toggleDiv('Net0ann');">Notes</h3>
