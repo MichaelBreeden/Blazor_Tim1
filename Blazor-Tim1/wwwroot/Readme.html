@@ -127,7 +127,6 @@ The tables the data would come from are:
     </div>
     <hr align='left' class='clHr300' />
 
-
     <h3 onclick="toggleDiv('Net0an1tc1');">.Net Core AppSettings - Tim Corey</h3>
     <div id="idDivNet0an1tc1" style="display:none;">
 <pre>Intro to AppSettings in .NET Core - Appsettings.json, secrets.json, and more - Tim Corey
@@ -465,7 +464,103 @@ app.razor is where the routing comes from. (follows from _layout.shtml)
     </div>
     <hr align='left' class='clHr300' />
 
+    <h3 onclick="toggleDiv('Net033n');">Section 3 - Included Systems</h3>
+    <div id="idDivNet033n" style="display:none;">
+<pre>Introduction
+  Homework: Create a Blazor site with the following
+    a. A class that is shared only inside the same instance that stores the 
+	  counter value and logs counter value changes. (Between page changes.)
+	  
+	b. A weather forecast with the number of days specified in the appsettings.json file
+	
+	c. A better looking table for the weather forecast.	
+</pre>
+<pre>Dependency Injection - Program.cs  
+  Runs in the background, waiting for requests.
+  You can put in and remove parts of the ASP.Net system. 
+  
+  Make IDataAccess.cs Interface. (Might be more than one DataAccess class)
+  
+  There are 3 ways to add services  
+    1. builder.Services.AddSingleton - One Instance per App and lasts the life of the application.
+	   Not necessarily good if you are reading data. Scope is wrong for that. 
+    2. builder.Services.AddScoped
+    3. builder.Services.AddTransient
 
+
+He defaults to using Transient... to avoid sharing data and to make sure a session is closed.
+Singleton can add efficiency, but not often.
+
+Dependency Injection is running, but then it has to be @inject at the page...
+It can also be injected into a class as a constructor parameter. 	
+	
+This dependency injection can be replaced by a more sophisticated system if you need
+to for some reason.
+
+You can get a lot of dependencys lixsted, but that is OK. They are in one place and anyone 
+can find them.
+
+Remember, models do not need interfaces as they can't really be replaced.
+</pre>
+<pre>Logging
+Out of the box, logging is installed and enabled by default.
+It starts out logging to the background command prompt the site is running in.
+It is also in the output pane. 
+
+Log Levels:
+  Trace - Shows too much
+  Debug 
+  Information - default
+  Warning
+  Error
+  Critical
+
+Inject ILogger into the page - injected stuff is available onInitialization() 
+@37:30 You can add logging to a class the same way. See WeatherForecastService.cd
+
+Change logging in appSettings.json
+@21:00 Keep in mind though is that the log setting in the launchSettings.json overrides 
+  what is in appSettings.json.
+@25:00 - How to catch just certain messages.... Wow.  
+  
+@28:30 - Changing Microsoft logging in program.cs   
+This is going to be different for .Net 6.
+.ConfigurtionLogging(logger => 
+{
+logger.ClearProviders(); // Clears out the defaults
+logger.AddConsole();     // Turn back on Capture Window
+logger.AddDebug();        // turn back on debug in Output window.
+  // Really, with both those turned on again, you won't see any difference.
+// You could also set the loggin level here instead of in the appSettings.json, 
+// but don't do that because it cannot be changed at runtime. 
+logger.SetMinimumLevel(LogLevel.Information);  
+});
+
+You generally only want to log Warning and above in Production, otherwise it makes a mess.
+
+Generally the code for the Microsoft debugger works interchangably with other 
+loggers you want to use. 
+
+You don't use asynchronous logging because it can slows things down.
+Using SQL logging, it tends to get enqueud to speed up SQL writing.
+</pre>
+
+<pre>Configuration - See below a bit...
+</pre>
+<pre>Bootstrap
+Authentication Pages use Bootstrap by default.
+In _Layout.shtml is a reference to Bootstrap.css, but no mention of Bootstrap.js
+
+Bootstrap is up to ver. 5 at this point. This has Bootstrap v5.1.0
+
+Make any css changes you want to make in site.css.
+
+It doesn't look likee there is any javascript... because Blazor is supposed to be about
+using C# for data display and manipulation. You may still need javascript
+to manipulate the DOM. ... Of course there is blazor..js
+</pre>
+    </div>
+    <hr align='left' class='clHr300' />
 
     <h3 onclick="toggleDiv('Net0ann');">Notes</h3>
     <div id="idDivNet0ann" style="display:none;">
