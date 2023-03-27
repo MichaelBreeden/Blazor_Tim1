@@ -1,10 +1,12 @@
 ﻿@page "/fetchdata"
 @page "/demo/weather"
+@page "/weather/forecast"
 <PageTitle>Weather forecast</PageTitle>
 
-@using Blazor_Tim1.Data
-@inject WeatherForecastService ForecastService
-
+<!-- Remove this and put [njected on the FetchData page.]
+ @@using Blazor_Tim1.Data
+ @@inject WeatherForecastService ForecastService
+-->
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from a service.</p>
@@ -38,11 +40,11 @@ else
     </table>
 }
 
-@code {
+<!--code {
     private WeatherForecast[]? forecasts;
 
     protected override async Task OnInitializedAsync() // Page Event... there are many more.
     {
         forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
     }
-}
+}-->

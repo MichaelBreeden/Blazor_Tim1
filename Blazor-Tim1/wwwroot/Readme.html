@@ -562,6 +562,118 @@ to manipulate the DOM. ... Of course there is blazor..js
     </div>
     <hr align='left' class='clHr300' />
 
+    <h3 onclick="toggleDiv('Net04');">Section 4. Pages</h3>
+    <div id="idDivNet04" style="display:none;">
+<pre>Intro - Homework
+Copyright notice in the default layout footer
+A secondary Layout for new pages that identifies them as eexperimental.
+Working voting buttons on the layout page.
+</pre>
+
+<pre>Default Layout
+_Host.cshtml just calls _Layout.cshtml - Interesting, that may make it harder to change in the page.
+
+_Layout.cshtml calls RazorPage.cs @RenderBody() 
+  which returns IHtmlContent ? RazorPageBase.BodyContent;
+
+Then to Shared\MainLayout.razor ... has @Body 
+
+In Shared\MainLayout.razor (like other places) is a component declaration [[NavMenu />
+Shared\NavMenu.razor does not have an @Page command at the top.
+.......Blazor is composable....
+Notice it inherits @inherits LayoutComponentBase
+
+Lights up "link"
+Match="NavLinkMatch.All" 
+  would match localhost:5556 localhost:5556, not localhost:5556/Temp
+Match="NavLinkMatch.PrefixMatch" (Default)
+  would match localhost:5556/Counter to localhost:5556/Counter and localhost:5556/Counter/2
+
+href just starts in the root by default...  href="counter", not  href="/counter"
+
+oi = Open Iconic - free icons ( as opposed to Fonts Awesome)
+</pre>
+
+<pre>Creating Pages - Add a Razor component, which is a Blazor page.
+</pre>
+
+<pre>Page Code Support 
+Code can be on page and is accessible to HTML page.
+To call code that is moved off the page, make a new class and inherit from it.
+  See Counter.razor and CounterBase.cs
+  
+@7:00 how to bring in a logger... Create a property. 
+
+@11:00, there is a new way of doing this though. See FetchData page. He prefers this way.
+    Make a class the same name as the page - FetchData.cs
+    ...
+ 
+Code on a HTML page or moving it off is about choosing a balance.
+"Put only code on your page that relates to displaying on the page".
+</pre>
+
+<pre>Razor Syntax - Works across all .Net Core offerings. 
+    A couple tweeks are Bllazor specific.
+The '@' sysmbol defines Razor syntax.	
+
+Escape it with @@	
+
+.. so how about @iInt + 5 - changes it to a literal. so use @(iInt + 5)
+
+For Multiple Lines, but this is sort of like class code... so
+@{
+    var iInt2 = iInt + 5
+}
+@iInt2
+
+So how about @("[[h1> This is a header[[/h1>") ? It renders it as a literal string instead of html.
+@Html.Raw("Put your html here") But Blazor is a bit different.
+It would be @((MarkupString)"Put your html here") --- Pay attention to this.
+
+@onClick = "method" is Blazor Syntax. There are lots of other "on" events available. Sure
+seems like javascript to me or a Windows event.
+
+See FetchData.razor for @if ... {... ... ...} else {... ... ...}
+While, do while, for loops work too.
+</pre>
+
+<pre>Layout Pages - Copy MainLayout.razor code to
+
+Every Blazor page or component is really just a class so you can have inheritence.
+
+A layout page has to have an @body tag on it somewhere. It is a Razor Component.
+Add SimpleLayout.razor. 
+</pre>
+<pre>Conclusion
+Copyright notice in the default layout footer
+A secondary Layout for new pages that identifies them as eexperimental.
+Working voting buttons on the layout page.
+</pre>
+    </div>
+    <hr align='left' class='clHr300' />
+
+    <h3 onclick="toggleDiv('Net0bwc');">Components</h3>
+    <div id="idDivNet0bwc" style="display:none;">
+<pre>Introduction - Components are the heart of Blazor.
+Create a Blazor Site with the following:
+A list of components that shows a user's first and last name.
+A "fix" button next to each name that displays a list of name alternatives.
+Clicking on an alternative should update the displayed name of the suer.
+</pre>
+<pre>Using Pages
+</pre>
+<pre>Parameters
+</pre>
+<pre>Component Parameters
+</pre>
+<pre>Events
+</pre>
+<pre>Conclusion
+</pre>
+    </div>
+    <hr align='left' class='clHr300' />
+
+
     <h3 onclick="toggleDiv('Net0ann');">Notes</h3>
     <div id="idDivNet0ann" style="display:none;">
 <pre>

@@ -1,5 +1,10 @@
-﻿@page "/counter"
+﻿@layout SimpleLayout
+@page "/counter"
 @page "/counter/{StarterValue:int}"
+<!-- Doesn't seem to just inherit, seems to instantiate it as well.-->
+@inherits CounterBase
+
+
 <!-- Section 1, Lesson 3, Routing 16:30 .. Route could be anything to get it here. -->
 <PageTitle>Counter</PageTitle>
 
@@ -9,7 +14,8 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
-@code {
+<!-- Let's move this code out to a class in CounterBase.cs -->
+<!--code {
     [Parameter]
     public int StarterValue { get; set; } // Property name matches to route is expecting
 
@@ -25,8 +31,8 @@
 
     private void IncrementCount()
     {
-        // Error handling Section2 Lesson 5 @1:00
+        // Error handling Section2 Lesson 5 At 1:00
         // throw new exceptio("I just broke this");
         currentCount++;
-    }
-}
+    } 
+}-->
