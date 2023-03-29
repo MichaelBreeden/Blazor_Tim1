@@ -1,0 +1,14 @@
+﻿<!-- No page directive-->
+<!-- Could add ATusing 
+ATusing BlazorComponents.Models 
+But instead add it to the list in _Imports.razor
+-->
+<div><h4>@Address.AddressType</h4>
+    <p>@Address.StreetAddress</p>
+    <p>@Address.City, @Address.State @Address.ZipCode</p>
+</div>
+@code {
+    // 
+    [Parameter] // Instead of listing each property
+    public AddressModel Address { get; set; }
+}

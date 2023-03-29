@@ -1,0 +1,20 @@
+﻿@page "/ComponentParameters"
+<h3>ComponentParameters</h3>
+
+<!-- So how do we send a parameter to the Counter component? 
+     The Counter component (page) is expecting a parameter: StartingValue
+     Put it in the opening tag.
+-->
+<div class="row">
+    <div class = "col-6">
+<Counter StartingValue="5" PageHeader="Puddle 1"></Counter>
+    </div>
+
+    <div class="col-6">
+<Counter StartingValue="23" PageHeader="Puddle 2"></Counter>
+    </div>
+</div>
+
+@code {
+
+}

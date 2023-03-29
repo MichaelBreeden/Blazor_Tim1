@@ -1,0 +1,101 @@
+﻿@page "/Directory"
+<h1>Directory</h1>
+
+<div class="row">
+    @foreach(var p in People)
+    {
+        <div class="col-4">
+        <PersonComponent FirstName="@p.FirstName" LastName="@p.LastName">
+            <AddressFragment>
+                @if(p.Addresses.Count > 0)
+                {
+                   <h3>Addresses</h3>
+                }
+                @foreach(var a in p.Addresses)
+                {
+                    <AddressComponent Address="@a">
+                    </AddressComponent>
+                }
+            </AddressFragment>
+        </PersonComponent>
+        </div>
+    }
+</div>
+
+<!-- @@code {  // Moved to class
+    // Get people info
+    List<PersonModel> People { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        People = new List<PersonModel>
+        {
+            new PersonModel
+            {
+                FirstName = "Bob",
+                LastName = "Hope",
+                Addresses =  new List<AddressModel>
+                {
+                    new AddressModel
+                    {
+                        AddressType = "Home",
+                        StreetAddress = "234 Globe St.",
+                        State = "CA",
+                        ZipCode = "91368"
+                    },
+                    new AddressModel
+                    {
+                        AddressType = "Work",
+                        StreetAddress = "224 Van Nuys Blvd.",
+                        State = "CA",
+                        ZipCode = "91377"
+                    }
+                }
+            },
+            new PersonModel
+            {
+                FirstName = "Tiny",
+                LastName = "Tim",
+                Addresses =  new List<AddressModel>
+                {
+                    new AddressModel
+                    {
+                        AddressType = "Home",
+                        StreetAddress = "123 Glitter Dr.",
+                        State = "FL",
+                        ZipCode = "01368"
+                    },
+                    new AddressModel
+                    {
+                        AddressType = "Work",
+                        StreetAddress = "234 Orange Blvd.",
+                        State = "FL",
+                        ZipCode = "01377"
+                    }
+                }
+            },
+            new PersonModel
+            {
+                FirstName = "Sue",
+                LastName = "Storm",
+                Addresses =  new List<AddressModel>
+                {
+                    new AddressModel()
+                    //{
+                    //    AddressType = "Home",
+                    //    StreetAddress = "123 Glitter Dr.",
+                    //    State = "FL",
+                    //    ZipCode = "01368"
+                    //}
+                }
+            }
+        }; // End People = new List<PersonModel>
+    } // End protected override async Task OnInitializedAsync()
+
+    /* Will use this when it pulls from Db - Now do it in the constructor though
+    protected override async Task OnInitializedAsync()
+    {
+        //forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+    }*/
+} -->

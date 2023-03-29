@@ -406,7 +406,7 @@ File Upload - Not in 3.1, can still be useful
 
     <h3 onclick="toggleDiv('Net66');">Section 02 The Basics</h3>
     <div id="idDivNet66" style="display:none;">
-<pre>Section Introduction
+<pre>* Section Introduction
   Basic Template
   How Routing Works
   Development Hosting
@@ -466,7 +466,7 @@ app.razor is where the routing comes from. (follows from _layout.shtml)
 
     <h3 onclick="toggleDiv('Net033n');">Section 3 - Included Systems</h3>
     <div id="idDivNet033n" style="display:none;">
-<pre>Introduction
+<pre>* Introduction
   Homework: Create a Blazor site with the following
     a. A class that is shared only inside the same instance that stores the 
 	  counter value and logs counter value changes. (Between page changes.)
@@ -475,7 +475,7 @@ app.razor is where the routing comes from. (follows from _layout.shtml)
 	
 	c. A better looking table for the weather forecast.	
 </pre>
-<pre>Dependency Injection - Program.cs  
+<pre>* Dependency Injection - Program.cs  
   Runs in the background, waiting for requests.
   You can put in and remove parts of the ASP.Net system. 
   
@@ -502,7 +502,7 @@ can find them.
 
 Remember, models do not need interfaces as they can't really be replaced.
 </pre>
-<pre>Logging
+<pre>* Logging
 Out of the box, logging is installed and enabled by default.
 It starts out logging to the background command prompt the site is running in.
 It is also in the output pane. 
@@ -545,9 +545,9 @@ You don't use asynchronous logging because it can slows things down.
 Using SQL logging, it tends to get enqueud to speed up SQL writing.
 </pre>
 
-<pre>Configuration - See below a bit...
+<pre>* Configuration - See below a bit...
 </pre>
-<pre>Bootstrap
+<pre>* Bootstrap
 Authentication Pages use Bootstrap by default.
 In _Layout.shtml is a reference to Bootstrap.css, but no mention of Bootstrap.js
 
@@ -564,13 +564,13 @@ to manipulate the DOM. ... Of course there is blazor..js
 
     <h3 onclick="toggleDiv('Net04');">Section 4. Pages</h3>
     <div id="idDivNet04" style="display:none;">
-<pre>Intro - Homework
+<pre>* Intro - Homework
 Copyright notice in the default layout footer
 A secondary Layout for new pages that identifies them as eexperimental.
 Working voting buttons on the layout page.
 </pre>
 
-<pre>Default Layout
+<pre>* Default Layout
 _Host.cshtml just calls _Layout.cshtml - Interesting, that may make it harder to change in the page.
 
 _Layout.cshtml calls RazorPage.cs @RenderBody() 
@@ -594,10 +594,10 @@ href just starts in the root by default...  href="counter", not  href="/counter"
 oi = Open Iconic - free icons ( as opposed to Fonts Awesome)
 </pre>
 
-<pre>Creating Pages - Add a Razor component, which is a Blazor page.
+<pre>* Creating Pages - Add a Razor component, which is a Blazor page.
 </pre>
 
-<pre>Page Code Support 
+<pre>* Page Code Support 
 Code can be on page and is accessible to HTML page.
 To call code that is moved off the page, make a new class and inherit from it.
   See Counter.razor and CounterBase.cs
@@ -612,7 +612,7 @@ Code on a HTML page or moving it off is about choosing a balance.
 "Put only code on your page that relates to displaying on the page".
 </pre>
 
-<pre>Razor Syntax - Works across all .Net Core offerings. 
+<pre>* Razor Syntax - Works across all .Net Core offerings. 
     A couple tweeks are Bllazor specific.
 The '@' sysmbol defines Razor syntax.	
 
@@ -637,14 +637,14 @@ See FetchData.razor for @if ... {... ... ...} else {... ... ...}
 While, do while, for loops work too.
 </pre>
 
-<pre>Layout Pages - Copy MainLayout.razor code to
+<pre>* Layout Pages - Copy MainLayout.razor code to
 
 Every Blazor page or component is really just a class so you can have inheritence.
 
 A layout page has to have an @body tag on it somewhere. It is a Razor Component.
 Add SimpleLayout.razor. 
 </pre>
-<pre>Conclusion
+<pre>* Conclusion
 Copyright notice in the default layout footer
 A secondary Layout for new pages that identifies them as eexperimental.
 Working voting buttons on the layout page.
@@ -657,18 +657,51 @@ Working voting buttons on the layout page.
 <pre>Introduction - Components are the heart of Blazor.
 Create a Blazor Site with the following:
 A list of components that shows a user's first and last name.
-A "fix" button next to each name that displays a list of name alternatives.
-Clicking on an alternative should update the displayed name of the suer.
+A "fix" button next to each name that displays a list of name alternatives. Sue Storm ->Storm, Sue
+Clicking on an alternative should update the displayed name of the user.
 </pre>
-<pre>Using Pages
+<pre>* Using Pages - As components.
+Add page Components.razor - add to Nav Menu
+
+Add component (a counter page) to page to make composition.
+... They are really components, but we treat them as pages...
+... Like breaking down code into blocks... that can be called... why you add "Razor Components" 
+    instead of Razor Pages. 
+They are Web Components, but done differently... (no javascript file.)
 </pre>
-<pre>Parameters
+<pre>* Parameters - Sending data to a component.
+Make page (Razor Component) ComponentParameters.razor
+So how do we send a parameter to the Counter component? (See code)
+
+In the component getting the parameter:
+  Add Property with [Parameter]
+  Use protected override void OnParameterSet() 
+
+In the page calling the component, Put it in the opening tag...[[Counter StartingValue="5">[[/Counter>
+Could be multiple parameters.
+
+So you can make a page out of copies of a components, with different parameters.
 </pre>
-<pre>Component Parameters
+<pre>* Component as Parameters 
+How to send componets as parameters to a page.
+Make new folder: Models for data to use... Add PeronModel.cs and AddressModel.cs
+    Create fake test data.
+Make Directory.razor to compose and display components for the PersonModel and Address Model.
+... Uses RenderFragment...
 </pre>
-<pre>Events
+<pre>* Events
+Like Parameters in reverse that sends data from component back to parent.
+
+Make Vote.razor - With button. 
+Add to Counter
+Add to FetchData 
+
+You can use the compoonent differently on different pages because of how you can react to it.
+
+The event doesn't necessarily have to be handled.
+Multiple events can be called as well.
 </pre>
-<pre>Conclusion
+<pre>* Conclusion
 </pre>
     </div>
     <hr align='left' class='clHr300' />

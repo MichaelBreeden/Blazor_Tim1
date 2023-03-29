@@ -1,0 +1,26 @@
+﻿<button class="btn btn-outline-primary mx-2" @onclick="ThumbsUp"> 
+    <span class="oi oi-thumb-up"></span> Approve
+</button>
+<button class="btn btn-outline-primary mx-2" @onclick="ThumbsDown">
+    <span class="oi oi-thumb-down"></span> Reject
+</button>
+
+
+@code { // Need to tell parent what button has been selected. Will go back to Counter.
+
+    // Pass back a string in this case. Probably should be an enum.
+    [Parameter]
+    public EventCallback<string> onVoted { get; set; } 
+
+    private void ThumbsUp()
+    {
+        // Type of delegagte for Blazor applications... This is handled by the parent. 
+        // triggers a limited redraw based on what event changes on page. 
+        // Functions aand delegates will not do that.
+        onVoted.InvokeAsync("Approved"); // Calls an event on the parent
+    }
+    private void ThumbsDown()
+    {
+        onVoted.InvokeAsync("Rejected");
+    }
+}

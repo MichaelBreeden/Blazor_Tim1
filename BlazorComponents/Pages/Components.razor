@@ -1,0 +1,14 @@
+﻿@page "/components"
+<h3>Component</h3>
+
+<!-- Bring in a component to this page, a component we already have. 
+     A page can be used as a component
+-->
+<table><tr>
+@for(int i = 0; i < 3; i++)
+{
+<td><Counter></Counter></td>
+}
+    </tr>
+</table>
+<FetchData></FetchData>
