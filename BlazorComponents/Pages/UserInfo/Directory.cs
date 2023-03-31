@@ -21,6 +21,7 @@ namespace BlazorComponents.Pages.UserInfo
                     {
                         AddressType = "Home",
                         StreetAddress = "234 Globe St.",
+                        City = "Encino",
                         State = "CA",
                         ZipCode = "91368"
                     },
@@ -28,6 +29,7 @@ namespace BlazorComponents.Pages.UserInfo
                     {
                         AddressType = "Work",
                         StreetAddress = "224 Van Nuys Blvd.",
+                        City = "Van Nuys",
                         State = "CA",
                         ZipCode = "91377"
                     }
@@ -43,6 +45,7 @@ namespace BlazorComponents.Pages.UserInfo
                     {
                         AddressType = "Home",
                         StreetAddress = "123 Glitter Dr.",
+                        City = "Palm Beach",
                         State = "FL",
                         ZipCode = "01368"
                     },
@@ -50,6 +53,7 @@ namespace BlazorComponents.Pages.UserInfo
                     {
                         AddressType = "Work",
                         StreetAddress = "234 Orange Blvd.",
+                        City = "Homestead",
                         State = "FL",
                         ZipCode = "01377"
                     }

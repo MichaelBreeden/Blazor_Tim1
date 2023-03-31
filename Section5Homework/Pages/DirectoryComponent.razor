@@ -1,0 +1,46 @@
+﻿@page "/directoryComponent"
+<h3>Directory Component</h3>
+<div class="row">
+    @foreach(var u in UserList)
+    {
+        <div class="col-4">
+            <UserComponent FirstName="@u.FirstName" LastName="@u.LastName" Message="@u.Message">
+            </UserComponent> 
+        </div>
+    }
+
+</div>
+
+
+@code {
+    // Add Section5Homework.Models to imports.razor
+    private List<UserModel> UserList;
+
+    public DirectoryComponent()
+    {
+        UserList = new List<UserModel>
+        {
+            new UserModel
+            {
+                 FirstName = "Mike",
+                 LastName = "Breeden",
+                 Message = "Good Stuff"
+            },
+             new UserModel
+            {
+                 FirstName = "Phil",
+                 LastName = "Colins",
+                 Message = "Good Music"
+            },
+             new UserModel
+            {
+                 FirstName = "Amelia",
+                 LastName = "Aerhart",
+                 Message = "Good Flying"
+            },
+        };
+    }
+
+
+
+}

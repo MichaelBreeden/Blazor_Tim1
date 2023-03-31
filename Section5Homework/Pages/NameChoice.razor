@@ -1,0 +1,45 @@
+﻿<!-- Different ways to show name. 
+    Pass in a function to onClick
+-->
+<p class="h3" onclick="(() => OnNameSelected(normalType))">
+    @normalType
+</p>
+<p class="h3" onclick="(() => OnNameSelected(reversedType))">
+    @reversedType
+</p>
+<p class="h3" onclick="(() => OnNameSelected(initialType))">
+    @initialType
+</p>
+<p class="h3" onclick="(() => OnNameSelected(emailType))">
+    @emailType
+</p>
+
+@code {  // from about 5:00 to  
+    private string normalType = "";
+    private string reversedType = "";
+    private string initialType = "";
+    private string emailType = "";
+
+    // Two parameters coming into this component.
+    [Parameter]
+    public string FirstName { get; set; }
+    [Parameter]
+    public string LastName { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnNameTypeSelected { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        normalType = $"{ FirstName } { LastName }";
+        reversedType = $"{ LastName }, { FirstName }";
+        initialType = $"{ FirstName.Substring(0,1) }. { LastName }";
+        emailType = $"{ FirstName.Substring(0,1) }{ LastName }";
+    }
+
+    private void OnNameSelected(string selectedName)
+    {
+        OnNameTypeSelected.InvokeAsync(selectedName);
+    }
+}
