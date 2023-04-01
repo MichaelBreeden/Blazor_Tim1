@@ -1,16 +1,17 @@
 ﻿<!-- Different ways to show name. 
-    Pass in a function to onClick
+    Pass in a function to onClick ~10:00
 -->
-<p class="h3" onclick="(() => OnNameSelected(normalType))">
+<p class="h3" @onclick="(() => OnNameSelected(normalType))">
+    <br/>
     @normalType
 </p>
-<p class="h3" onclick="(() => OnNameSelected(reversedType))">
+<p class="h3" @onclick="(() => OnNameSelected(reversedType))">
     @reversedType
 </p>
-<p class="h3" onclick="(() => OnNameSelected(initialType))">
+<p class="h3" @onclick="(() => OnNameSelected(initialType))">
     @initialType
 </p>
-<p class="h3" onclick="(() => OnNameSelected(emailType))">
+<p class="h3" @onclick="(() => OnNameSelected(emailType))">
     @emailType
 </p>
 

@@ -4,8 +4,8 @@
 </button>
 @if(showFix)
 {
-    <NameChoice FirstName=Firstname, 
-                LastName="lastName"
+    <NameChoice FirstName=@FirstName  
+                LastName=@LastName
                 OnNameTypeSelected="HandleOnNameTypeSelected">
     </NameChoice>
     <h3>@Message</h3>
