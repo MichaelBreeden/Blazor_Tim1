@@ -1,0 +1,54 @@
+﻿@page "/userform"
+<h3>User Form</h3>
+<p>@formResults</p><!-- Once you have them-->
+
+<p><span>
+    First Name: @person.FirstName
+    </span>&nbsp;&nbsp;&nbsp;
+    <span>
+    Last Name: @person.LastName
+    </span>
+</p>
+
+<div class="col-12">
+
+<!-- This person model is temporary... and might not be valid. If from a model, have another one. -->
+<EditForm model ="@person" OnSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator/>
+        <ValidationSummary/>
+        <div class="row" style="padding-top:8px;">
+            <div class="col-4">
+    First Name: <InputText id="firstName" @bind-Value="person.FirstName" />
+        </div>
+            <div class="col-4">
+            Last Name: <InputText id="lastName" @bind-Value="person.LastName" />
+        </div>
+        </div>
+
+        <div class="row" style="padding-top:8px;">
+            <div class="col-4">
+    Age: <InputNumber id="age" @bind-Value="person.Age" />
+        </div>
+            <div class="col-4" style="padding-top:28px;">
+            Give Consent:
+    <InputCheckbox id="gaveConsent" @bind-Value="person.GaveConsent"/>
+            </div>
+        </div>
+        <div class="row" style="padding-top:8px;">
+        <div class="col-4">
+        <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </div>
+        <!-- Not really a submit, but it's not HTTP - No Verb, instead SignalR-->
+</EditForm>
+</div>
+@code {
+    // Place to store input. Needs to be initialized so parts can be added one by one.
+    private PersonModel person = new PersonModel();
+    private string formResults = "";
+    private void HandleValidSubmit() // vs HandleInvalidSubmit()
+    {
+        formResults = $"{person.FirstName} {person.LastName} was just created.";
+        person = new PersonModel();
+    }
+}

@@ -1,0 +1,40 @@
+﻿@page "/milkshakecomponent"
+<h3>Milk Shake Order</h3>
+<p>@formResults</p><!-- Once you have them-->
+
+<p>
+    Name: @model.Name
+</p>
+
+<!-- This model model is temporary... and might not be valid. If from a model, have another one. -->
+<EditForm model="@model" OnSubmit="HandleValidSubmit">
+    <p>
+    Name: <InputText id="name" @bind-Value="model.Name" h/>
+    </p>
+
+    <p style="margin-top:6px;">
+        Type: <InputText id="type" @bind-Value="model.Type" />&nbsp;&nbsp;
+        Size: <InputText id="size" @bind-Value="model.Size" />
+    </p>
+
+    <p style="margin-top:6px;">
+        Quantity:<InputNumber id="type" @bind-Value="model.Quantity" />&nbsp;&nbsp;
+        Whipped Cream:
+        <InputCheckbox id="gaveConsent" @bind-Value="model.WhippedCream" />
+    </p>
+
+    <p style="margin-top:2px;">
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </p>
+    <!-- Not really a submit, but it's not HTTP - No Verb, instead SignalR-->
+</EditForm>
+
+@code {
+    // Place to store input. Needs to be initialized so parts can be added one by one.
+    private MilkShakeOrderModel model = new MilkShakeOrderModel();
+    private string formResults = "";
+    private void HandleValidSubmit() // vs HandleInvalidSubmit()
+    {
+        formResults = $"Order for {model.Name} was just created.";
+    }
+}

@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor-Tim1", "Blazor-Tim1\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{8A5E499C-C72A-4004-BAE1-95EF9F5C5CCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorComponents", "BlazorComponents\BlazorComponents.csproj", "{8745CB10-EF7A-4386-AEA0-B11D34A8F831}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorComponents", "BlazorComponents\BlazorComponents.csproj", "{8745CB10-EF7A-4386-AEA0-B11D34A8F831}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Section5Homework", "Section5Homework\Section5Homework.csproj", "{FF2B20B6-C79A-4CD6-B613-ED4CC7FC62E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Section5Homework", "Section5Homework\Section5Homework.csproj", "{FF2B20B6-C79A-4CD6-B613-ED4CC7FC62E8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Section6Forms", "Section6Forms\Section6Forms.csproj", "{6D31D864-64A5-41C3-A6B2-FA0E0E35E0FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{FF2B20B6-C79A-4CD6-B613-ED4CC7FC62E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF2B20B6-C79A-4CD6-B613-ED4CC7FC62E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF2B20B6-C79A-4CD6-B613-ED4CC7FC62E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D31D864-64A5-41C3-A6B2-FA0E0E35E0FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D31D864-64A5-41C3-A6B2-FA0E0E35E0FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D31D864-64A5-41C3-A6B2-FA0E0E35E0FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D31D864-64A5-41C3-A6B2-FA0E0E35E0FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

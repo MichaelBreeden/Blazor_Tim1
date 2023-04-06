@@ -99,34 +99,6 @@
 <body>
     <h3>This is about making a website serve the Covid Vaccine Data taken from Salesforce.</h3>
 
-    <h3 onclick="toggleDiv('Net0an1');">Vaccine Information Web Site Design</h3>
-    <div id="idDivNet0an1" style="display:none;">
-<pre>
-Work with data in for vaccine information: HLSQLStage01\Warehouse.VaccineData_2022 Database.
-
-The tables the data would come from are:
-  (1) Accounts (1,284 MB) - Key table.
-      Contains a lot of data but most of it is empty. There are about 38 fields with useful data.
-  
-  (2) HealthCloudGA_EhrImmumzation__c (396 MB)
-      This table seems to record reports to ICare about Account Encounters. (One too Many)  
- 
-  (3) TimeSlot (88 MB) - 285,888 records - Many accounts in the same time slot. That makes sense.
-      I don't think this table matters, but verify
-
-  (4) PatientImmunization (295 KB) 811 Rows - Looks abandoned (Verify)
-  (5) PatientImmunizationHistory (14 KB) - 112 Rows - Looks abandoned
-  
-  select ac.id, ac.PERSONEMAIL, hc.id, hc.HOHEMAILADDRESS__C from accounts ac 
-         inner join from HealthCloudGA_EhrImmumzation hc		 
-		 on ac.Id = hc.ACCOUNTID__C
-		 where acid='0014W000026KmD7QAK'
-</pre>
-
-
-    </div>
-    <hr align='left' class='clHr300' />
-
     <h3 onclick="toggleDiv('Net0an1tc1');">.Net Core AppSettings - Tim Corey</h3>
     <div id="idDivNet0an1tc1" style="display:none;">
 <pre>Intro to AppSettings in .NET Core - Appsettings.json, secrets.json, and more - Tim Corey
@@ -191,7 +163,7 @@ Sew ... appsettings.development.json - only used when in development.
     </div>
     <hr align='left' class='clHr300' />
 
-    <h3 onclick="toggleDiv('Net0bss');">Back To Blazor Server Side - Tim Corey</h3>
+    <h3 onclick="toggleDiv('Net0bss');">Back To Blazor Server Side - Tim Corey Band35</h3>
     <div id="idDivNet0bss" style="display:none;">
 <pre>Intro to Blazor Server Side - Includes SQL Data Access and Best Practices
 https://www.youtube.com/watch?v=8DNgdphLvag&t=4s (.Net Core 3.1)
@@ -652,7 +624,7 @@ Working voting buttons on the layout page.
     </div>
     <hr align='left' class='clHr300' />
 
-    <h3 onclick="toggleDiv('Net0bwc');">Components</h3>
+    <h3 onclick="toggleDiv('Net0bwc');">Section 5. Components</h3>
     <div id="idDivNet0bwc" style="display:none;">
 <pre>Introduction - Components are the heart of Blazor.
 Create a Blazor Site with the following:
@@ -691,6 +663,9 @@ Make Directory.razor to compose and display components for the PersonModel and A
 </pre>
 <pre>* Events
 Like Parameters in reverse that sends data from component back to parent.
+    // Pass back a string in this case. Probably should be an enum.
+    [Parameter]
+    public EventCallback[[string> onVoted { get; set; } 
 
 Make Vote.razor - With button. 
 Add to Counter
@@ -703,10 +678,41 @@ Multiple events can be called as well.
 </pre>
 <pre>* Conclusion - Section 5 Homework
 
-
-
+Adding Blazor Components with Drag and Drop - Tim Corey
+https://www.youtube.com/watch?v=1-4BuF9Mztk
 </pre>
     </div>
+    <hr align='left' class='clHr300' />
+
+<h3 onclick="toggleDiv('Net066');">Section 6. Forms and Validation</h3>
+<div id="idDivNet066" style="display:none;">
+    <pre>* Introduction
+Homework: Create a Milkshake ordering form with:
+A dropdown for the kind of milkshake.
+A dropdown for the size of the milkshake.
+A name for the order.
+A quantity for the order.
+A checkbox for adding whipped cream.
+
+Should be validated and verifies upon submission that it worked or why it failed.
+Needs "result" div
+</pre>
+<pre>* Basic Forms - Section6Forms
+UserForm.razor : name input
+</pre>
+<pre>* Validation *
+
+</pre>
+<pre>* Advanced Forms *
+
+</pre>
+<pre>* File Uploads
+
+</pre>
+<pre>* Section Conclusion
+
+</pre>
+</div>
     <hr align='left' class='clHr300' />
 
 
@@ -717,6 +723,8 @@ Multiple events can be called as well.
 </pre>
     </div>
     <hr align='left' class='clHr300' />
+
+
     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 </body>
 </html>
